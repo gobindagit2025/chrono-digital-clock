@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHRONO — Digital Clock & Alarm</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <header>
+    <div class="logo">Chrono</div>
+    <div class="controls">
+      <button class="icon-btn" id="formatToggle" title="Toggle 12/24h">12</button>
+      <button class="icon-btn" id="themeToggle"  title="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <!-- ── Ringing Banner ─────────────────────────────────────────────────── -->
+  <div class="alarm-banner" id="alarmBanner">
+    <div class="banner-content">
+      <div class="banner-info">
+        <div class="banner-icon">🔔</div>
+        <div class="banner-text">
+          <strong id="bannerTitle">Alarm!</strong>
+          <span id="bannerTime">—</span>
+        </div>
+      </div>
+      <div class="banner-actions">
+        <button class="snooze-btn"  id="snoozeBtn">💤 Snooze 5m</button>
+        <button class="dismiss-btn" id="dismissBtn">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Clock Card ─────────────────────────────────────────────────────── -->
+  <div class="clock-card">
+    <div class="time-display" id="timeDisplay">
+      <span id="timeText">00:00:00</span>
+      <span class="period-badge" id="periodBadge"></span>
+    </div>
+    <div class="date-display" id="dateDisplay">Loading…</div>
+    <div class="pulse-row">
+      <div class="pulse-dot"></div>
+      <div class="pulse-label">Live</div>
+    </div>
+  </div>
+
+  <!-- ── Add Alarm ──────────────────────────────────────────────────────── -->
+  <div class="alarm-form-card">
+    <div class="section-label">Set Alarm</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="alarmTime">Time</label>
+        <input type="time" id="alarmTime" placeholder="HH:MM" />
+      </div>
+      <div class="form-group">
+        <label for="alarmLabel">Label</label>
+        <input type="text" id="alarmLabel" placeholder="Wake up…" maxlength="24" />
+      </div>
+      <button class="add-btn" id="addAlarmBtn">＋ Add</button>
+    </div>
+  </div>
+
+  <!-- ── Alarms List ────────────────────────────────────────────────────── -->
+  <div class="alarms-card">
+    <div class="section-label">Alarms</div>
+    <div class="alarms-list" id="alarmsList">
+      <div class="empty-state">
+        <div>⏰</div>
+        No alarms set
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2026 Chrono — All times local</footer>
+
+</div><!-- /.container -->
+
+<!-- Scripts -->
+<script src="script.js"></script>
+</body>
+</html>

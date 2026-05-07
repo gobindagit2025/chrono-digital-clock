@@ -1,0 +1,589 @@
+/* ─── CSS Variables / Themes ────────────────────────────────────────────── */
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a24;
+  --border: #2a2a3a;
+  --accent: #00e5ff;
+  --accent2: #ff4081;
+  --accent3: #76ff03;
+  --text: #e8eaf6;
+  --text-dim: #5c6070;
+  --text-mid: #9ea3b8;
+  --glow: 0 0 20px rgba(0,229,255,0.3);
+  --glow-strong: 0 0 40px rgba(0,229,255,0.5);
+  --shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+.light {
+  --bg: #f0f2f8;
+  --surface: #ffffff;
+  --surface2: #e8ebf5;
+  --border: #d0d4e8;
+  --accent: #0288d1;
+  --accent2: #d81b60;
+  --accent3: #558b2f;
+  --text: #1a1a2e;
+  --text-dim: #9ea3b8;
+  --text-mid: #5c6070;
+  --glow: 0 0 20px rgba(2,136,209,0.2);
+  --glow-strong: 0 0 40px rgba(2,136,209,0.35);
+  --shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px 48px;
+  transition: background 0.4s, color 0.4s;
+  overflow-x: hidden;
+}
+
+/* Grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 700px;
+}
+
+/* ─── Header ────────────────────────────────────────────────────────────── */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 0 4px;
+}
+
+.logo {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: var(--accent);
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-mid);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.icon-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.icon-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,229,255,0.08);
+}
+
+/* ─── Clock Card ────────────────────────────────────────────────────────── */
+.clock-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 32px 36px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.clock-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.time-display {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(52px, 13vw, 88px);
+  color: var(--text);
+  letter-spacing: 4px;
+  line-height: 1;
+  margin-bottom: 8px;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.time-display.alarm-ringing {
+  color: var(--accent2);
+  animation: ring-pulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes ring-pulse {
+  from { text-shadow: 0 0 20px rgba(255,64,129,0.4); }
+  to   { text-shadow: 0 0 60px rgba(255,64,129,0.9), 0 0 100px rgba(255,64,129,0.4); }
+}
+
+.period-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 18px;
+  color: var(--accent);
+  letter-spacing: 3px;
+  margin-left: 6px;
+  vertical-align: super;
+}
+
+.date-display {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+
+/* ─── Pulse Row ─────────────────────────────────────────────────────────── */
+.pulse-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 1s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.pulse-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ─── Alarm Ringing Banner ──────────────────────────────────────────────── */
+.alarm-banner {
+  display: none;
+  background: linear-gradient(135deg, rgba(255,64,129,0.15), rgba(255,64,129,0.05));
+  border: 1px solid var(--accent2);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  animation: banner-in 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.alarm-banner.visible { display: block; }
+
+.alarm-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 8px,
+    rgba(255,64,129,0.04) 8px, rgba(255,64,129,0.04) 16px
+  );
+}
+
+@keyframes banner-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.banner-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.banner-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.banner-icon {
+  font-size: 24px;
+  animation: shake 0.4s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0); }
+  25%       { transform: rotate(-15deg); }
+  75%       { transform: rotate(15deg); }
+}
+
+.banner-text strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent2);
+  letter-spacing: 1px;
+}
+
+.banner-text span {
+  font-size: 12px;
+  color: var(--text-mid);
+  letter-spacing: 2px;
+}
+
+.banner-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.snooze-btn,
+.dismiss-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: 1px solid;
+  transition: all 0.2s;
+}
+
+.snooze-btn {
+  background: transparent;
+  border-color: var(--text-dim);
+  color: var(--text-mid);
+}
+
+.snooze-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.dismiss-btn {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: #fff;
+}
+
+.dismiss-btn:hover {
+  opacity: 0.85;
+  transform: scale(0.97);
+}
+
+/* ─── Alarm Form Card ───────────────────────────────────────────────────── */
+.alarm-form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 24px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.form-group input {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.form-group input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,229,255,0.1);
+}
+
+.form-group input::placeholder {
+  color: var(--text-dim);
+}
+
+.add-btn {
+  height: 42px;
+  padding: 0 20px;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  color: var(--bg);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.add-btn:hover {
+  opacity: 0.9;
+  box-shadow: var(--glow);
+  transform: translateY(-1px);
+}
+
+.add-btn:active {
+  transform: translateY(0);
+}
+
+/* ─── Alarms List Card ──────────────────────────────────────────────────── */
+.alarms-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.alarms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px 0;
+  color: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.empty-state div:first-child {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+.alarm-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s;
+  animation: item-in 0.25s ease;
+}
+
+@keyframes item-in {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.alarm-item:hover { border-color: var(--accent); }
+.alarm-item.ringing { border-color: var(--accent2); background: rgba(255,64,129,0.06); }
+.alarm-item.snoozed { border-color: var(--text-dim); opacity: 0.7; }
+
+/* Toggle switch */
+.alarm-toggle {
+  width: 36px;
+  height: 20px;
+  background: var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  border: none;
+}
+
+.alarm-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  background: var(--text-dim);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.alarm-toggle.on { background: var(--accent); }
+
+.alarm-toggle.on::after {
+  left: 19px;
+  background: var(--bg);
+}
+
+.alarm-time-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 22px;
+  color: var(--text);
+  flex: 1;
+}
+
+.alarm-tag {
+  font-size: 11px;
+  color: var(--text-mid);
+  letter-spacing: 1px;
+  flex: 1;
+}
+
+.alarm-status {
+  font-size: 10px;
+  letter-spacing: 3px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.status-active  { background: rgba(0,229,255,0.1);    color: var(--accent); }
+.status-snoozed { background: rgba(255,193,7,0.1);    color: #ffc107; }
+.status-ringing { background: rgba(255,64,129,0.15);  color: var(--accent2); animation: blink 0.6s step-end infinite; }
+.status-off     { background: var(--surface);          color: var(--text-dim); }
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.delete-alarm-btn {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.delete-alarm-btn:hover {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+
+/* ─── Footer ────────────────────────────────────────────────────────────── */
+footer {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .add-btn {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+  .alarm-item {
+    flex-wrap: wrap;
+  }
+}
